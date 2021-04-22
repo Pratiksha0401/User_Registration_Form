@@ -45,6 +45,15 @@ class  User_Registration_form extends User
         System.out.println("Invalid.. enter phone number");
     }
 
+	 while(true){
+      System.out.println("Enter password");
+      String password=sc.nextLine();
+      if((form.isValid_password(password))==true)
+        break;
+      else
+        System.out.println("Invalid.. enter at least 8 char password");
+    }
+
   }
 }
 
@@ -54,6 +63,7 @@ class User
 	private String lastName;
 	private String emailId;
 	private String phoneNumber;
+	private String password;
 	Pattern p;
 	Matcher m;
 	String regex;
@@ -102,6 +112,18 @@ class User
           return false;
         }
 		m = p.matcher(phoneNumber);
+		return m.matches();
+	}
+
+		protected boolean isValid_password(String password)
+	{
+    this.password=password;
+		 regex="^[a-zA-Z]{8,}+$";
+		p = Pattern.compile(regex);
+		if (password== null) {
+          return false;
+        }
+		m = p.matcher(password);
 		return m.matches();
 	}
 
