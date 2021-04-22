@@ -80,7 +80,7 @@ class User
 	protected boolean isValid_emailId(String emailId)
 	{
     this.emailId=emailId;
-		regex="^[A-Z a-z 0-9]+([._+-][0-9 a-z A-Z]+)*![.]@([0-9A-Za-z]+).([A-Za-z]{2,3}).[A-Za-z]{0,2}$;
+		 regex="^[A-Z a-z 0-9]+([._+-][0-9 a-z A-Z]+)*![.]@([0-9A-Za-z]+).([A-Za-z]{2,3}).[A-Za-z]{0,2}$";
 		p = Pattern.compile(regex);
 		if (emailId == null) {
           return false;
@@ -88,21 +88,5 @@ class User
 		m = p.matcher(emailId);
 		return m.matches();
 	}
-
-	public String getfirstName()
-  {
-    return firstName;
-  }
-  public void lastName(String firstname) {
-        this.firstName=firstname;
-  }
-
-  public String getlastName()
-  {
-    return firstName;
-  }
-  public void setlastName(String lastName) {
-        this.lastName=lastName;
-      }
 
 }
