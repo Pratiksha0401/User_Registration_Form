@@ -12,10 +12,8 @@ class  User_Registration_form extends User
 	while(true){
       System.out.println("Enter First Name");
       String first_Name=sc.nextLine();
-      if((form.isValid_firstName(first_Name))==true){
-        System.out.println("Valid");
+      if((form.isValid_firstName(first_Name))==true)
         break;
-        }
       else
         System.out.println("Invalid...1st letter must be Capital");
     }
@@ -23,10 +21,8 @@ class  User_Registration_form extends User
     while(true){
       System.out.println("Enter last Name");
       String last_Name=sc.nextLine();
-      if((form.isValid_lastName(last_Name))==true){
-        System.out.println("Valid");
+      if((form.isValid_lastName(last_Name))==true)      
         break;
-        }
       else
         System.out.println("Invalid...1st letter must be Capital");
     }
@@ -34,12 +30,19 @@ class  User_Registration_form extends User
 	  while(true){
       System.out.println("Enter Email Id");
       String emailId=sc.nextLine();
-      if((form.isValid_emailId(emailId))==true){
-        System.out.println("Valid");
+      if((form.isValid_emailId(emailId))==true)
         break;
-        }
       else
         System.out.println("Invalid.. enter valid email Id");
+    }
+
+	  while(true){
+      System.out.println("Enter Phone Number");
+      String phoneNumber=sc.nextLine();
+      if((form.isValid_phoneNumber(phoneNumber))==true)
+        break;
+      else
+        System.out.println("Invalid.. enter phone number");
     }
 
   }
@@ -47,9 +50,10 @@ class  User_Registration_form extends User
 
 class User
 {
-	public String firstName;
-	public String lastName;
+	private String firstName;
+	private String lastName;
 	private String emailId;
+	private String phoneNumber;
 	Pattern p;
 	Matcher m;
 	String regex;
@@ -80,12 +84,24 @@ class User
 	protected boolean isValid_emailId(String emailId)
 	{
     this.emailId=emailId;
-		 regex="^[A-Z a-z 0-9]+([._+-][0-9 a-z A-Z]+)*![.]@([0-9A-Za-z]+).([A-Za-z]{2,3}).[A-Za-z]{0,2}$";
+		 regex="^[A-Z a-z 0-9]+([._+-][0-9 a-z A-Z]+)*@[0-9 a-z A-Z]+.[a-z A-Z]{2,3}([.][a-z A-Z]{2})*$";
 		p = Pattern.compile(regex);
 		if (emailId == null) {
           return false;
         }
 		m = p.matcher(emailId);
+		return m.matches();
+	}
+
+	protected boolean isValid_phoneNumber(String phoneNumber)
+	{
+    this.phoneNumber=phoneNumber;
+		 regex="^[1-9]{2}\\s{0,1}[1-9]{1}[0-9]{9}$";
+		p = Pattern.compile(regex);
+		if (phoneNumber== null) {
+          return false;
+        }
+		m = p.matcher(phoneNumber);
 		return m.matches();
 	}
 
