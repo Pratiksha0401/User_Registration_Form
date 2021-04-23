@@ -47,7 +47,7 @@ class  User_Registration_form
 	}
 
 	protected boolean isValid_Password(User user){
-		regex="^([a-zA-Z0-9]{8,})$";
+		regex="^(?=[0-9 A-Z a-z !@#$%^&*();:]{8,}$)(?=.*?[A-Z]{1,})(?=.*?[0-9]{1,})(?=.*?[!@#$%^&*();:]{1,}).*$";
 		p = Pattern.compile(regex);
 		if (user.getPassword()== null) {
           return false;
