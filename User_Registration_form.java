@@ -1,67 +1,112 @@
+package Registration_Form.Validation.util;
+
 import java.util.regex.*;
+
+import javax.script.ScriptException;
+
+import Registration_Form.Validation.util.UserValidation_Exception.Validation;
+import Registration_Form.Validation.util.ValidationException.Code;
+
 import java.util.*;
-class  User_Registration_form
+class  User_Registration_Form
 {
-	Pattern p;
-	Matcher m;
-	String regex;
+	static Pattern p;
+	static Matcher m;
+	static String regex;
 
-	protected boolean isValid_firstName(User user){
+	protected static boolean isValid_firstName(User user) throws UserValidation_Exception{
 		regex="^[A-Z]{1}[a-z]+";
 		p = Pattern.compile(regex);
-		if (user.getFirstName() == null) {
-          return false;
-        }
-		 m= p.matcher(user.getFirstName());
-		return m.matches();
+		try {
+			if (user.getFirstName() == null) {
+				throw new UserValidation_Exception(Validation.NULL,"Null firstName");
+	        }
+			else if(user.getFirstName()==" ")
+				throw new UserValidation_Exception(Validation.EMPTY,"Empty firstName");
+			else {	
+				m= p.matcher(user.getFirstName());
+				return m.matches();
+				}
+		}catch(Exception e) {
+			throw new UserValidation_Exception(Validation.INVALID,"Invalid firstName");
+		}	
+		
 	}
 
-  protected boolean isValid_lastName(User user){
+  protected boolean isValid_lastName(User user) throws UserValidation_Exception{
 		regex="^[A-Z]{1}[a-z]+";
 		p = Pattern.compile(regex);
-		if (user.getLastName()== null) {
-          return false;
-        }
-		m = p.matcher(user.getLastName());
-		return m.matches();
+		try {
+			if (user.getLastName()== null) 
+				throw new UserValidation_Exception(Validation.NULL,"Null lastName");
+			else if(user.getLastName()==" ")
+				throw new UserValidation_Exception(Validation.EMPTY,"Empty lasttName");
+			else {	
+				m= p.matcher(user.getLastName());
+				return m.matches();
+				}
+		}catch(Exception e) {
+			throw new UserValidation_Exception(Validation.INVALID,"Invalid firstName");
+		}	
 	}
 
-	protected boolean isValid_emailId(User user){
+	protected boolean isValid_emailId(User user) throws UserValidation_Exception{
 		regex="^[A-Z a-z 0-9]+([._+-][0-9 a-z A-Z]+)*@[0-9 a-z A-Z]+.[a-z A-Z]{2,3}([.][a-z A-Z]{2})*$";
 		p = Pattern.compile(regex);
-		if (user.getEmailId() == null) {
-          return false;
-        }
-		m = p.matcher(user.getEmailId());
-		return m.matches();
+		try {
+			if (user.getEmailId() == null) 
+				throw new UserValidation_Exception(Validation.NULL,"Null Email Id");
+			else if(user.getEmailId()==" ")
+				throw new UserValidation_Exception(Validation.EMPTY,"Empty Email Id");
+			else {	
+				m= p.matcher(user.getEmailId());
+				return m.matches();
+				}
+		}catch(Exception e) {
+			throw new UserValidation_Exception(Validation.INVALID,"Invalid Email Id");
+		}	
 	}
 
-	protected boolean isValid_MobileNumber(User user){
+	protected boolean isValid_MobileNumber(User user) throws UserValidation_Exception{
 		regex="^[1-9]{2}\\s{0,1}[1-9]{1}[0-9]{9}$";
 		p = Pattern.compile(regex);
-		if (user.getMobileNumber()== null) {
-          return false;
-        }
-		m = p.matcher(user.getMobileNumber());
-		return m.matches();
+		try {
+			if (user.getMobileNumber()== null) 
+				throw new UserValidation_Exception(Validation.NULL,"Null Mobile Number");
+			else if(user.getMobileNumber()==" ")
+				throw new UserValidation_Exception(Validation.EMPTY,"Empty Mobile Number");
+			else {	
+				m= p.matcher(user.getMobileNumber());
+				return m.matches();
+				}
+		}catch(Exception e) {
+			throw new UserValidation_Exception(Validation.INVALID,"Invalid Mobile Number");
+		}	
 	}
 
-	protected boolean isValid_Password(User user){
+	protected boolean isValid_Password(User user) throws UserValidation_Exception{
 		regex="^(?=[0-9 A-Z a-z !@#$%^&*();:]{8,}$)(?=.*?[A-Z]{1,})(?=.*?[0-9]{1,})(?=.*?[!@#$%^&*();:]{1,}).*$";
 		p = Pattern.compile(regex);
-		if (user.getPassword()== null) {
-          return false;
-        }
-		m = p.matcher(user.getPassword());
-		return m.matches();
+		try {
+			if (user.getPassword()== null) 
+				throw new UserValidation_Exception(Validation.NULL,"Null Password");
+			else if(user.getPassword()==" ")
+				throw new UserValidation_Exception(Validation.EMPTY,"Empty Password");
+			else {	
+				m= p.matcher(user.getPassword());
+				return m.matches();
+				}
+		}catch(Exception e) {
+			throw new UserValidation_Exception(Validation.INVALID,"Invalid Password");
+		}	
 	}
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws UserValidation_Exception 
 	{
     Scanner sc=new Scanner(System.in); 
-    User_Registration_form form=new User_Registration_form();
-    User user=new User();
-	
+    User_Registration_Form form=new User_Registration_Form();
+    User user=new User("Pratiksha","Nagoshe","Pratiksh123@gmail.com","778899665544","awqe@123");
+    
 	while(true){
       System.out.println("Enter First Name");
       user.setFirstName(sc.nextLine());
@@ -106,7 +151,7 @@ class  User_Registration_form
       else
         System.out.println("Invalid.. enter 8 char min with 1 capital letter and at 1 digit");
 	}
-  }
+	}
 }
 
 class User
@@ -116,7 +161,15 @@ class User
 	private String emailId;
 	private String mobileNumber;
 	private String password;
-
+	
+	public User(String firstName,String lastName,String emailId,String mobileNumber,String password) {
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.emailId=emailId;
+		this.mobileNumber=mobileNumber;
+		this.password=password;
+	}
+	
 	public String getFirstName(){
 		return firstName;
 	  }
